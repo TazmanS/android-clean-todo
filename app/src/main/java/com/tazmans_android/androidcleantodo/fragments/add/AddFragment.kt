@@ -11,11 +11,14 @@ import com.tazmans_android.androidcleantodo.R
 import com.tazmans_android.androidcleantodo.data.models.Priority
 import com.tazmans_android.androidcleantodo.data.models.ToDoData
 import com.tazmans_android.androidcleantodo.data.viewModel.ToDoViewModel
+import com.tazmans_android.androidcleantodo.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +27,8 @@ class AddFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
 
         setHasOptionsMenu(true)
+
+        view.priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
 
         return view
     }
@@ -44,12 +49,12 @@ class AddFragment : Fragment() {
         val mPriority = priorities_spinner.selectedItem.toString()
         val mDescription = description_et.text.toString()
 
-        val validation = verifyDataFromUser(mTitle, mDescription)
+        val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
         if(validation) {
             val newData = ToDoData(
                 0,
                 mTitle,
-                parsePriority(mPriority),
+                mSharedViewModel.parsePriority(mPriority),
                 mDescription
             )
 
@@ -62,20 +67,7 @@ class AddFragment : Fragment() {
         }
     }
 
-    private fun verifyDataFromUser(title: String, description: String): Boolean {
-        return if(TextUtils.isEmpty(title) || TextUtils.isEmpty(description)) {
-            false
-        } else !(title.isEmpty() || description.isEmpty())
-    }
 
-    private fun parsePriority(priority: String): Priority {
-        return when(priority) {
-            "High Priority" -> {Priority.HIGH}
-            "Meduim Priority" -> {Priority.MEDIUM}
-            "Low Priority" -> {Priority.LOW}
-            else -> Priority.LOW
-        }
-    }
 
 
 }

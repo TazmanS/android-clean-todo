@@ -66,4 +66,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
+    // Data binding
+    kapt 'androidx.databinding:databinding-common:7.4.2'
+    kapt 'com.android.databinding:compiler:3.1.4'
+
 }

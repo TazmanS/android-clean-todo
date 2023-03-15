@@ -22,22 +22,21 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
 
     var listener: AdapterView.OnItemSelectedListener = object :
         AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(
-            parent: AdapterView<*>?,
-            view: View?,
-            position: Int,
-            id: Long)
-        {
-            when(position){
-                0 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.red)) }
-                1 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow)) }
-                2 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green)) }
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long)
+            {
+                when(position){
+                    0 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.red)) }
+                    1 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow)) }
+                    2 -> { (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green)) }
+                }
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-
-        override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-    }
 
     fun verifyDataFromUser(title: String, description: String): Boolean {
         return if(TextUtils.isEmpty(title) || TextUtils.isEmpty(description)) {
@@ -57,11 +56,4 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun parsePriorityToInt(priority: Priority): Int {
-        return when(priority) {
-            Priority.HIGH -> 0
-            Priority.MEDIUM -> 1
-            Priority.LOW -> 2
-        }
-    }
 }

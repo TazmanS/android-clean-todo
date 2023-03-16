@@ -17,6 +17,7 @@ import com.tazmans_android.androidcleantodo.data.viewModel.ToDoViewModel
 import com.tazmans_android.androidcleantodo.databinding.FragmentListBinding
 import com.tazmans_android.androidcleantodo.fragments.SharedViewModel
 import com.tazmans_android.androidcleantodo.fragments.list.adapter.ListAdapter
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment() {
 
@@ -52,6 +53,9 @@ class ListFragment : Fragment() {
         val recycleView = binding.recycleView
         recycleView.adapter = adapter
         recycleView.layoutManager = LinearLayoutManager(requireActivity())
+        recycleView.itemAnimator = SlideInUpAnimator().apply {
+            addDuration = 300
+        }
 
         swipeToDelete(recycleView)
     }

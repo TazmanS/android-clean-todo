@@ -20,6 +20,7 @@ import com.tazmans_android.androidcleantodo.data.viewModel.ToDoViewModel
 import com.tazmans_android.androidcleantodo.databinding.FragmentListBinding
 import com.tazmans_android.androidcleantodo.fragments.SharedViewModel
 import com.tazmans_android.androidcleantodo.fragments.list.adapter.ListAdapter
+import com.tazmans_android.androidcleantodo.fragments.utils.hideKeyboard
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -48,6 +49,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         // Set menu
         setHasOptionsMenu(true)
+
+        hideKeyboard(requireActivity())
 
         return binding.root
     }
